@@ -4,7 +4,8 @@ data2019 <- read.csv("log_process\\logdata\\logdata_2019.csv",na.strings=c("","N
 
 library(dplyr)
 
-firstgame <- data2019 %>% select(4:12,15,17,18) %>% slice(1:162)
+firstgame <- data2019 %>% select(4:12,15,17,18)
+# firstgame <- data2019 %>% select(4:12,15,17,18) %>% slice(1:162) #做第一場
 firstgame$base1N <- NA
 firstgame$base2N <- NA
 firstgame$base3N <- NA
@@ -27,6 +28,7 @@ onfirstbase <- c("一壘安打", "左外野安打", "中外野安打", "右外�
                  "穿越安打", "平飛安打", "內野安打", "中間方向安打", "德州安打", "滾地安打", "不死三振","保送")
 onsecondbase <- c("二壘安打")
 onthirdbase  <- c("三壘安打")
+alldead <- c("雙殺")
 
 for ( i in 1:nrow(firstgame))  {
   if(i==1){
@@ -37,6 +39,8 @@ for ( i in 1:nrow(firstgame))  {
     firstgame$basesit[i] <- 0
     out_now <- 0
   }
+
+  
   if(i>1){
     firstgame$base1N[i] <- firstgame$base1N[i-1]
     firstgame$base2N[i] <- firstgame$base2N[i-1]
@@ -126,8 +130,14 @@ for ( i in 1:nrow(firstgame))  {
           if (grepl(onthirdbase[k], firstgame$log[i])==TRUE){       #壘包沒人，上三壘
             firstgame$basesit[i] <- 3
           }}
+        for (k in 1:length(alldead)){
+          if (grepl(alldead[k], firstgame$log[i])==TRUE){       #壘包沒人，上三壘
+            firstgame$basesit[i] <- 0
+          }}
       }
-      
+      if (is.na(firstgame$basesit[i])){
+        firstgame$basesit[i] <- firstgame$basesit[i-1]
+      }
   
   
     firstgame$outN[i] <- out_now
@@ -159,3 +169,4 @@ for ( i in 1:nrow(firstgame))  {
 # }
 # print(s)
 
+ # DPsub <- subset(firstgame, grepl("再傳" , firstgame$log)&grepl("雙殺" , firstgame$log)==FALSE)
