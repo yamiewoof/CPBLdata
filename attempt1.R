@@ -87,7 +87,7 @@ for ( i in 1:nrow(allgames))  {
     #   if (grepl(hit1_type[j], allgames$log[i])){
     #     allgames$base1N[i] <- allgames$Player[i]
     #   }}
- ########################################################## 
+ ########################################################### 
    
     for (j in 1:length(base1)) {
       if (grepl(base1[j], allgames$log[i])){
