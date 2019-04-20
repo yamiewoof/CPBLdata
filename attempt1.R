@@ -11,7 +11,7 @@ data2018 <- cbind(year = 2018,data2018)
 data2019 <- read.csv("log_process\\logdata\\logdata_2019.csv",na.strings=c("","NA"),stringsAsFactors = FALSE)
 data2019 <- cbind(year = 2019,data2019)
 data2016to19 <- bind_rows(data2016,data2017,data2018,data2019)
-# write.csv(data2016to19 ,file = sprintf("log_process\\logdata\\data2016to19.csv"), row.names=FALSE)
+#write.csv(data2016to19 ,file = sprintf("log_process\\logdata\\data2016to19.csv"), row.names=FALSE)
 
 
 
@@ -75,9 +75,9 @@ for ( i in 1:nrow(allgames))  {
     out_now <- 2
     }
     
-    if (grepl("三出局", allgames$log[i])){
-    out_now <- 3
-    }
+    # if (grepl("三出局", allgames$log[i])){
+    # out_now <- 3
+    # }
     
     # if (grepl("四壞球保送", allgames$log[i])){
     # allgames$base1N[i] <- allgames$Player[i]
@@ -292,7 +292,7 @@ str(allgames)
 
 
 
-# write.csv(allgames,file = sprintf("log_process\\logdata\\allgames.csv"), row.names=FALSE)
+#write.csv(allgames,file = sprintf("log_process\\logdata\\allgames.csv"), row.names=FALSE)
 
 #######################################################################################################
 
